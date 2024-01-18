@@ -1,0 +1,26 @@
+/* background-color: rgb(60, 140, 200); */
+
+.signup-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-box{
+    width: 450px;
+    height: 650px;
+    border: 2px solid rgb(60, 140, 200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.signup-input-group{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}

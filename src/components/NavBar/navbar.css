@@ -1,0 +1,10 @@
+.me-auto{
+margin-right:0 !important;
+}
+.nav-bar-container{
+    justify-content: space-around !important;
+}
+
+.navbar-collapse.collapse{
+    justify-content: end;
+}
