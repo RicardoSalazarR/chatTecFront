@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./home.css";
 import Cards from "./Cards";
+import NavBarComponent from "../NavBar/NavBarComponent";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,17];
+  const navigate = useNavigate();
+  const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   const [items, setItems] = useState([]);
   const [selectedPage, setSelectedPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(8);
@@ -25,40 +28,43 @@ const Home = () => {
   }, [firstCard]);
 
   return (
-    <div className="home-container">
-      <ul className="sidemenu">
-        <li>
-          <label htmlFor="search">Buscar item</label>
-          <input type="text" id="search" />
-        </li>
-        <li>Items disponibles</li>
-        <li>Mostrar todos</li>
-        <li>Mis Items</li>
-      </ul>
-      <div className="body">
-        <div className="cards-main-container">
-          {paginatedItems.map((card, index) => (
-            <Cards key={index} />
-          ))}
-        </div>
-        <div className="pagination">
-          {pages.map((page) => (
-            <button
-              key={page}
-              onClick={() => {
-                setFirstCard(page * cardsPerPage - cardsPerPage);
-                setSelectedPage(page);
-              }}
-              className={
-                selectedPage === page ? "selected-page" : "pagination-button"
-              }
-            >
-              {page}
-            </button>
-          ))}
+    <>
+      <NavBarComponent />
+      <div className="home-container">
+        <ul className="sidemenu">
+          <li>
+            <label htmlFor="search">Buscar item</label>
+            <input type="text" id="search" />
+          </li>
+          <li>Items disponibles</li>
+          <li>Mostrar todos</li>
+          <li>Mis Items</li>
+        </ul>
+        <div className="body">
+          <div className="cards-main-container">
+            {paginatedItems.map((card, index) => (
+              <Cards key={index} />
+            ))}
+          </div>
+          <div className="pagination">
+            {pages.map((page) => (
+              <button
+                key={page}
+                onClick={() => {
+                  setFirstCard(page * cardsPerPage - cardsPerPage);
+                  setSelectedPage(page);
+                }}
+                className={
+                  selectedPage === page ? "selected-page" : "pagination-button"
+                }
+              >
+                {page}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

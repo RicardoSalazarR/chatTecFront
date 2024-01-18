@@ -10,17 +10,27 @@
 }
 
 .signup-box{
-    width: 450px;
+    width: 480px;
     height: 650px;
     border: 2px solid rgb(60, 140, 200);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    padding: 2rem 0;
 }
 
 .signup-input-group{
     display: flex;
     flex-direction: column;
     width: 80%;
+}
+
+.signup-box>button{
+    background-color: rgb(60, 140, 200);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 14px;
 }

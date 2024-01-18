@@ -1,11 +1,13 @@
 import React from "react";
 import "./signup.css";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate()
   return (
     <div className="signup-container">
       <div className="signup-box">
-        <span>Registrate</span>
+        <span className="box-title">Registrate</span>
         <div className="signup-input-group">
           <label htmlFor="">Nombre(s)</label>
           <input type="text" />
@@ -36,8 +38,8 @@ const SignUp = () => {
         </div>
         <button>Registrarme</button>
         <div className="login">
-          <span>¿Ya tienes una cuenta?</span>
-          <span className="text-link">Registrate</span>
+          <span>¿Ya tienes una cuenta?{"  "}</span>
+          <span className="text-link" onClick={()=> navigate("/login")}>Iniciar sesión</span>
         </div>
       </div>
     </div>
