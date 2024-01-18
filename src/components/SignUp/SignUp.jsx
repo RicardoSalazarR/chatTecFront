@@ -1,47 +1,145 @@
-import React from "react";
+import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [validPass, setValidPass] = useState(true);
+  const [confirmPass,setConfirmPass] = useState("")
+  const [data, setData] = useState({
+    alu_nombre: "",
+    alu_apellido: "",
+    alu_email: "",
+    alu_contrasena: "",
+    alu_telefono: "",
+    alu_no_control: "",
+    alu_carrera: "",
+  });
+
+  const handleChangeValue = (e, campo) => {
+    setData((prevState) => ({
+      ...prevState,
+      [campo]: e.target.value,
+    }));
+  };
+
+  const register = () => {
+    const validPass = confirmPass===data.alu_contrasena
+    if (validPass) {
+      console.log(data);
+    }else{
+      setValidPass(validPass)
+    }
+  };
+
   return (
     <div className="signup-container">
-      <div className="signup-box">
+      <form className="signup-box" onSubmit={register}>
         <span className="box-title">Registrate</span>
         <div className="signup-input-group">
           <label htmlFor="">Nombre(s)</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.alu_nombre}
+            onChange={(e) => handleChangeValue(e, "alu_nombre")}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Apellido(s)</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.alu_apellido}
+            onChange={(e) => handleChangeValue(e, "alu_apellido")}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Número de control</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.alu_no_control}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              const regex = /^[0-9]*$/;
+              if (
+                (regex.test(inputValue) && inputValue.length <= 8) ||
+                inputValue === ""
+              ) {
+                handleChangeValue(e, "alu_no_control");
+              }
+            }}
+            required
+          />
+        </div>
+        <div className="signup-input-group">
+          <label htmlFor="">carrera</label>
+          <input
+            type="text"
+            value={data.alu_carrera}
+            onChange={(e) => handleChangeValue(e, "alu_carrera")}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Email</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.alu_email}
+            onChange={(e) => handleChangeValue(e, "alu_email")}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Teléfono</label>
-          <input type="text" />
+          <input
+            type="text"
+            value={data.alu_telefono}
+            onChange={(e) => {
+              const inputValue = e.target.value;
+              const regex = /^[0-9]*$/;
+              if (
+                (regex.test(inputValue) && inputValue.length <= 10) ||
+                inputValue === ""
+              ) {
+                handleChangeValue(e, "alu_telefono");
+              }
+            }}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Contraseña</label>
-          <input type="text" />
+          <input
+            type="password"
+            value={data.alu_contrasena}
+            onChange={(e) => handleChangeValue(e, "alu_contrasena")}
+            required
+          />
         </div>
         <div className="signup-input-group">
           <label htmlFor="">Confirmar contraseña</label>
-          <input type="text" />
+          <input
+            type="password"
+            value={confirmPass}
+            onChange={(e)=>setConfirmPass(e.target.valu)}
+            onBlur={(e) => {
+              const valid = data.alu_contrasena === e.target.value;
+              setValidPass(valid);
+            }}
+            required
+            className={!validPass?"incorrect":""}
+          />
+          <span className={validPass?"hide":"error-text"}>Las contraseñas no coinciden</span>
         </div>
         <button>Registrarme</button>
         <div className="login">
           <span>¿Ya tienes una cuenta?{"  "}</span>
-          <span className="text-link" onClick={()=> navigate("/login")}>Iniciar sesión</span>
+          <span className="text-link" onClick={() => navigate("/login")}>
+            Iniciar sesión
+          </span>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
