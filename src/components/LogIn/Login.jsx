@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
-import { useForm } from "react-hook-form";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -17,11 +13,18 @@ const Login = () => {
     e.preventDefault();
     const data = { email, password };
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    if (email !== "" || password !== "") {
+    if (email !== "" && password !== "") {
       if (emailRegex.test(email)) {
         axios
           .post("http://localhost:8000/api/v1/auth/login", data)
-          .then((res) => console.log(res))
+          .then((res) => {
+            // console.log(res)
+            const {token, alu_nombre} = res.data
+            localStorage.setItem("chatTectoken", token);
+            localStorage.setItem("name",alu_nombre)
+            navigate("/");
+            window.location.reload();
+          })
           .catch((err) => {
             console.log(err);
             alert(
